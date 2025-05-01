@@ -1,5 +1,6 @@
 from TestCase import TestCase, TestResult, TestSuite
-from test_TestCase import TestSpy, TestStub
+from test_TestCase import TestCaseTest, TestSpy, TestStub
+from test_TestSuite import TestSuiteTest
 
 
 class TestLoader:
@@ -67,7 +68,14 @@ class TestRunner:
 
 
 loader = TestLoader()
-suite = loader.make_suite(TestLoaderTest)
+test_case_suite = loader.make_suite(TestCaseTest)
+test_suite_suite = loader.make_suite(TestSuiteTest)
+test_load_suite = loader.make_suite(TestLoaderTest)
+
+suite = TestSuite()
+suite.add_test(test_case_suite)
+suite.add_test(test_suite_suite)
+suite.add_test(test_load_suite)
 
 runner = TestRunner()
 runner.run(suite)
